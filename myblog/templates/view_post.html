@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block header %}
+	<!-- Page Header -->
+    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>Clean Blog</h1>
+              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+  
+  {% if frm_post %}
+
+		<div class="post-preview">
+				<h2 class="post-title">{{ frm_post.title }}</h2>
+				<h5 class="post-subtitle">{{ frm_post.short_des }}</h5>
+        <p>{{ frm_post.description }}</p>
+        
+        <p class="post-meta">
+          Posted by <a href="#">Admin</a> on {{ frm_post.create_date }}
+        </p>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 text-center">
+            <a href="{% url 'edit' frm_post.id %}" class="btn btn-sm btn-primary">Edit</a>
+          </div>
+          <div class="col-md-6 col-lg-6 text-center">
+            <a href="{% url 'delete' frm_post.id %}" class="btn btn-sm btn-danger">Delete</a>
+          </div>
+        </div>
+		</div>
+
+  {% endif %}
+
+  {% if frm_comments %}
+
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="comments col-md-9" id="comments">
+            <h3 class="mb-2">Comments</h3>
+            <!-- comment -->
+            <div class="comment mb-2 row">
+              {% for p_comments in frm_post.comments_set.all %}
+                <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                    <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m103.jpg" alt="avatar"></a>
+                </div>
+
+                <div class="comment-content col-md-11 col-sm-10">
+                    <h6 class="small comment-meta"><a href="#">{{ p_comments.name }}</a> {{ p_comments.date }}</h6>
+                    <div class="comment-body">
+                        <p>
+                            {{ p_comments.comment }}
+                            <br>
+                            <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
+                        </p>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
+            <!-- /comment -->
+
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="comments col-md-12">
+          <form method="post">
+            <h3>Add public comment:</h3>
+            <hr>
+            <!-- comment -->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-4 text-center pr-1">
+                    {{ frm_comments.name }}
+                </div>
+                <div class="col-md-12 col-sm-12 mb-4 text-center pr-1">
+                    {{ frm_comments.email }}
+                </div>
+                <div class="col-md-12 col-sm-12 mb-4 text-center pr-1">
+                    {{ frm_comments.comment }}
+                </div>
+            </div>
+            <!-- /comment -->
+            
+            <div class="row pt-2">
+                <div class="col-12 text-center">
+                  {% csrf_token %}
+                  <input type="submit" class="btn btn-sm btn-primary" value="Post comment">
+                </div>
+            </div>
+
+            </form>
+
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+{% endblock %}

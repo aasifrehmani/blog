@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block header %}
+	<!-- Page Header -->
+    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <!--
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>Clean Blog</h1>
+              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+            </div>
+          </div>
+        </div>
+        -->
+      </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+  
+  {% if frm_post %}
+
+    <form method="post">
+      <h1 class="text-center">Edit Post</h1> .
+      {% csrf_token %}
+      
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto pb-3">
+          {{ frm_post.title }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto pb-3">
+          {{ frm_post.short_des }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto pb-3">
+          {{ frm_post.description }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto pb-3 text-center">
+          <input type="submit" class="btn btn-warning" value="Update Post">
+        </div>
+      </div>
+      
+    </form>
+
+  {% endif %}
+{% endblock %}
